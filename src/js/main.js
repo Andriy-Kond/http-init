@@ -1,4 +1,4 @@
-// import usersTpl from "../templates/users.hbs";
+// import usersTpl from "../templates/users.hbs"; // ! не працює
 
 const fetchUsersBtn = document.querySelector(".btn");
 const userList = document.querySelector(".user-list");
@@ -13,6 +13,7 @@ fetchUsersBtn.addEventListener("click", () => {
     .catch(error => console.log(error));
 });
 
+// & non-async fn
 function fetchUsers() {
   return fetch("https://jsonplaceholder.typicode.com/users").then(response => {
     if (!response.ok) {
@@ -20,6 +21,15 @@ function fetchUsers() {
     }
     return response.json();
   });
+}
+
+// & async fn
+async function fetchUsersAsync() {
+  const response = await fetch("https://jsonplaceholder.typicode.com/users");
+  if (!response.ok) {
+    throw new Error(response.status);
+  }
+  return await response.json();
 }
 
 // w/o handlebars
@@ -36,7 +46,7 @@ function renderUsers(users) {
   userList.insertAdjacentHTML("beforeend", markup);
 }
 
-// // with handlebars - не працює
+// ! with handlebars - не працює
 // function renderUsers(users) {
 //   const markup = usersTpl(users);
 //   userList.insertAdjacentHTML("beforeend", markup);
