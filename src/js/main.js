@@ -1,9 +1,15 @@
+// import usersTpl from "../templates/users.hbs";
+
 const fetchUsersBtn = document.querySelector(".btn");
 const userList = document.querySelector(".user-list");
 
 fetchUsersBtn.addEventListener("click", () => {
   fetchUsers()
-    .then(users => renderUsers(users))
+    .then(users => {
+      console.log("fetchUsersBtn.addEventListener >> users:::", users);
+
+      renderUsers(users);
+    })
     .catch(error => console.log(error));
 });
 
@@ -16,6 +22,7 @@ function fetchUsers() {
   });
 }
 
+// w/o handlebars
 function renderUsers(users) {
   const markup = users
     .map(user => {
@@ -28,3 +35,9 @@ function renderUsers(users) {
     .join("");
   userList.insertAdjacentHTML("beforeend", markup);
 }
+
+// // with handlebars - не працює
+// function renderUsers(users) {
+//   const markup = usersTpl(users);
+//   userList.insertAdjacentHTML("beforeend", markup);
+// }
