@@ -3,19 +3,21 @@
 const fetchUsersBtn = document.querySelector(".btn");
 const userList = document.querySelector(".user-list");
 
+const url = "https://jsonplaceholder.typicode.com/users";
+const urlParams = "https://jsonplaceholder.typicode.com/users?_limit=7&_sort=name"; // поверне масив із семи користувачів (всього їх 10), відсортованих за ім'ям (поле name) в алфавітному порядку.
+
 fetchUsersBtn.addEventListener("click", () => {
-  fetchUsers()
+  fetchUsers(url)
     .then(users => {
       console.log("fetchUsersBtn.addEventListener >> users:::", users);
-
       renderUsers(users);
     })
     .catch(error => console.log(error));
 });
 
 // & non-async fn
-function fetchUsers() {
-  return fetch("https://jsonplaceholder.typicode.com/users").then(response => {
+function fetchUsers(url) {
+  return fetch(url).then(response => {
     if (!response.ok) {
       throw new Error(response.status);
     }
@@ -24,8 +26,8 @@ function fetchUsers() {
 }
 
 // & async fn
-async function fetchUsersAsync() {
-  const response = await fetch("https://jsonplaceholder.typicode.com/users");
+async function fetchUsersAsync(url) {
+  const response = await fetch(url);
   if (!response.ok) {
     throw new Error(response.status);
   }
