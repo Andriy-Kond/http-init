@@ -53,3 +53,28 @@ function renderUsers(users) {
 //   const markup = usersTpl(users);
 //   userList.insertAdjacentHTML("beforeend", markup);
 // }
+
+// * Зручний метод передачі параметрів у рядок запиту
+const searchParams = new URLSearchParams({
+  _limit: 5,
+  _sort: "name",
+});
+
+console.log("searchParams.toString():::", searchParams.toString()); // _limit=5&_sort=name
+
+const urlSearchParams = `https://jsonplaceholder.typicode.com/users?${searchParams}`;
+console.log("urlSearchParams:::", urlSearchParams); // https://jsonplaceholder.typicode.com/users?_limit=5&_sort=name
+
+// * HTTP-заголовки
+// Клас Headers дозволяє виконувати різні дії в заголовках HTTP-запиту і відповіді. До цих дій належать діставання, налаштування, додавання і видалення заголовків.
+const headers = new Headers({
+  "Content-Type": "application/json",
+  "X-Custom-Header": "custom value",
+});
+
+headers.append("Content-Type", "text/bash");
+headers.append("X-Custom-Header", "custom value");
+headers.has("Content-Type"); // true
+headers.get("Content-Type"); // "text/bash"
+headers.set("Content-Type", "application/json");
+headers.delete("X-Custom-Header");
